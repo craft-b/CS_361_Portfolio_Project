@@ -16,21 +16,19 @@ State csv files are required
 amazon_co-ecommerce_sample csv file is required 
 
 
-# Running this code in terminal with GUI #
+Running this code in terminal with GUI 
 
 `py ppl-generator_consumer_refactored.py` (for Person Generator)
 `py life-generator_producer.py` (for Life Generator)
 
 
-# Or with file #
+Or with file:
 
 `py ppl-generator_consumer_refactored.py input_ppl.csv` (for Person Generator)
 `py life-generator_producer.py input.csv` (for Life Generator)
 
 
-# Program and files should be saved to C: directory #
-# using gui folder (i.e. "c:/gui/" directory) #
-# Ofcourse, state.csv files and input.csv file will need to be #
-# saved in the gui folder with the program #
+Program and files should be saved to C: directory using gui folder (i.e. "c:/gui/" directory) 
+state.csv files and input.csv file will need to be saved in the gui folder with the program 
 
 
