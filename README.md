@@ -10,12 +10,11 @@ Each microservice can operate independently and can communicate asynchronously t
 RabbitMQ is the host of said queues that store the messages (from either side) for retreival.
 
 
+
 To use:
 
 Create a 'gui' folder on the C: drive.
-
 Download the 'ppl-generator_consumer_refactored.py' and 'life-generator_producer.py' program files to the 'gui' folder.
-
 Download the 'input_ppl.csv' and 'input.csv' files to the 'gui' folder.
 
 State csv data files are required for the person generator.  They should be downloaded 
@@ -25,10 +24,12 @@ An amazon_co-ecommerce_sample csv dataset is required for the life generator.  I
 from https://www.kaggle.com/datasets/PromptCloudHQ/toy-products-on-amazon and saved to the 'gui' folder
 
 
+
 Running this code in terminal with GUI: 
 
 `py ppl-generator_consumer_refactored.py` (for Person Generator)
 `py life-generator_producer.py` (for Life Generator)
+
 
 
 Or with input file:
