@@ -31,7 +31,6 @@ Or with input file:
 `py life-generator_producer.py input.csv` (for Life Generator)
 
 
-Program and files should be saved to C: directory using gui folder (i.e. "c:/gui/" directory) 
-state.csv files and input.csv file will need to be saved in the gui folder with the program 
+All programs and files should be saved to C: directory using a gui folder (i.e. "c:/gui/" directory) 
 
 
