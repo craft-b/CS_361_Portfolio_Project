@@ -1,5 +1,5 @@
 # CS_361_Portfolio_Project
-Person Generator Microservice Desktop App using Tkinter GUI
+Person Generator Desktop App using Tkinter GUI
 
 This project contains microservices for person generator (refactored version) and life generator.  
 
