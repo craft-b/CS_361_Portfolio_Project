@@ -1,20 +1,21 @@
 # CS_361_Portfolio_Project
 Person Generator Microservice using Tkinter GUI
 
-This project contains microservices for person generator (refactored version) and life generator.  It also contains 
-the original person generator file(generator.py), which isn't used in the execution.
+This project contains microservices for person generator (refactored version) and life generator.  
 
-Each microservice can operate independently, while both can communicate asynchronously through a set of queues.
+Each microservice can operate independently and can communicate asynchronously through a set of queues.
 
 RabbitMQ is the host of said queues that store the messages (from either side) for retreival.
 
 
 To use:
 
-State csv files are required 
+State csv data files are required for the person generator microservice.  They can be downloaded 
+from https://www.kaggle.com/datasets/openaddresses/openaddresses-us-west
 
 amazon_co-ecommerce_sample csv file is required 
 
+](https://www.kaggle.com/datasets/openaddresses/openaddresses-us-west)
 
 Running this code in terminal with GUI: 
 
