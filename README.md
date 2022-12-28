@@ -10,11 +10,12 @@ Each microservice can operate independently and can communicate asynchronously t
 RabbitMQ is the host of said queues that store the messages (from either side) for retreival.
 
 
-
 To use:
 
 Create a 'gui' folder on the C: drive.
+
 Download the 'ppl-generator_consumer_refactored.py' and 'life-generator_producer.py' program files to the 'gui' folder.
+
 Download the 'input_ppl.csv' and 'input.csv' files to the 'gui' folder.
 
 State csv data files are required for the person generator.  They should be downloaded 
