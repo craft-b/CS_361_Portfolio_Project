@@ -16,7 +16,7 @@ State csv files are required
 amazon_co-ecommerce_sample csv file is required 
 
 
-Running this code in terminal with GUI 
+Running this code in terminal with GUI: 
 
 `py ppl-generator_consumer_refactored.py` (for Person Generator)
 `py life-generator_producer.py` (for Life Generator)
