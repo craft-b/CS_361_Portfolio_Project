@@ -63,21 +63,18 @@ def export_input_csv():
     with open(sys.argv[1], 'r') as input_csv_file:
         input_request = pd.read_csv(input_csv_file, low_memory=False)
 
-        df = pd.DataFrame(input_request, columns=['input_state', 'input_number_to_generate']).values.tolist()
-        input_state = df[0][0].upper()
-        num_of_addresses = int(df[0][1])
+        input_state, num_of_addresses = input_request.loc[0, ['input_state', 'input_number_to_generate']]
+        input_state = input_state.upper()
 
-        given_state_data_file = 'c:/gui/' + input_state + '.csv'
-
+        given_state_data_file = f'c:/gui/{input_state}.csv'
         input_data = pd.read_csv(given_state_data_file, low_memory=False)
 
-        out_sampl = pd.DataFrame(input_data, columns=['NUMBER', 'STREET', 'CITY', 'POST CODE']
-                                 ).sample(n=num_of_addresses).astype(str)
-
+        out_sampl = input_data.loc[:, ['NUMBER', 'STREET', 'CITY', 'POST CODE']].sample(n=num_of_addresses).astype(str)
         out_sampl['input_state'] = input_state
         out_sampl['input_number_to_generate'] = num_of_addresses
         out_sampl['output_content_type'] = 'street address'
-        out_sampl['output_content_value'] = out_sampl['NUMBER'] + ' ' + out_sampl['STREET'] + ',' + ' ' + out_sampl['CITY'] + ' ' + out_sampl['POST CODE'].map(str)
+        out_sampl['output_content_value'] = out_sampl['NUMBER'] + ' ' + out_sampl['STREET'] + ',' + ' ' + out_sampl['CITY'] \
+        + ' ' + out_sampl['POST CODE'].map(str)
 
         out_sampl.to_csv('output_people_gen.csv', index=False, header=True)
 
