@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 
 # Bobby Craft
-# CS 361 
-# People Generator
+# CS 361
+# People Generator — Consumer Microservice
 # 2/28/21
 
+import os
+import sys
 from tkinter import *
 from tkinter import ttk, filedialog
 
-import os
 import pandas as pd
 import pika
-import sys
+
+# Data directory: set DATA_DIR env variable to override (defaults to script's directory)
+DATA_DIR = os.environ.get('DATA_DIR', os.path.dirname(os.path.abspath(__file__)))
 
 
 def send_messages_to_broker():
@@ -29,7 +32,7 @@ def send_messages_to_broker():
 def get_messages_from_brokering_queue():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
-    
+
     channel.queue_declare(queue='life_gen')
 
     def callback(ch, method, properties, body):
@@ -37,7 +40,7 @@ def get_messages_from_brokering_queue():
 
     channel.basic_consume(queue='life_gen', on_message_callback=callback, auto_ack=True)
 
-    print(' [*] Waiting for messages from Life Generator. To exit and launch PPL Generatorpress CTRL+C')
+    print(' [*] Waiting for messages from Life Generator. To exit and launch PPL Generator press CTRL+C')
 
     channel.start_consuming()
 
@@ -66,15 +69,17 @@ def export_input_csv():
         input_state, num_of_addresses = input_request.loc[0, ['input_state', 'input_number_to_generate']]
         input_state = input_state.upper()
 
-        given_state_data_file = f'c:/gui/{input_state}.csv'
+        given_state_data_file = os.path.join(DATA_DIR, input_state + '.csv')
         input_data = pd.read_csv(given_state_data_file, low_memory=False)
 
-        out_sampl = input_data.loc[:, ['NUMBER', 'STREET', 'CITY', 'POST CODE']].sample(n=num_of_addresses).astype(str)
+        out_sampl = input_data.loc[:, ['NUMBER', 'STREET', 'CITY', 'POSTCODE']].sample(n=num_of_addresses).astype(str)
         out_sampl['input_state'] = input_state
         out_sampl['input_number_to_generate'] = num_of_addresses
         out_sampl['output_content_type'] = 'street address'
-        out_sampl['output_content_value'] = out_sampl['NUMBER'] + ' ' + out_sampl['STREET'] + ',' + ' ' + out_sampl['CITY'] \
-        + ' ' + out_sampl['POST CODE'].map(str)
+        out_sampl['output_content_value'] = (
+            out_sampl['NUMBER'] + ' ' + out_sampl['STREET'] + ', ' +
+            out_sampl['CITY'] + ' ' + out_sampl['POSTCODE']
+        )
 
         out_sampl.to_csv('output_people_gen.csv', index=False, header=True)
 
@@ -91,7 +96,7 @@ def create_data_filepath(event):
     global filepath
 
     state = pick_list_states.get()
-    filepath = 'c:/gui/' + state + '.csv'
+    filepath = os.path.join(DATA_DIR, state + '.csv')
 
 
 def create_address_data_set(event):
@@ -110,8 +115,10 @@ def create_address_data_set(event):
     sample['input_state'] = state
     sample['input_number_to_generate'] = num_of_addresses
     sample['output_content_type'] = 'street address'
-    sample['output_content_value'] = sample['NUMBER'] + ' ' + sample['STREET'
-    ] + ',' + ' ' + sample['CITY'] + ' ' + sample['POSTCODE'].map(str)
+    sample['output_content_value'] = (
+        sample['NUMBER'] + ' ' + sample['STREET'] + ', ' +
+        sample['CITY'] + ' ' + sample['POSTCODE']
+    )
 
 
 def show_addresses_on_gui():
@@ -178,10 +185,10 @@ create_frame_labels()
 def create_gui_tree_view():
     global tree
 
-    tree = ttk.Treeview(lower_frame, columns=['Number', 'Street', 'City', 'Postal Code'], show='headings')
-    tree.place(relx=0, relheight=1, relwidth=1)
-
     cols = ('Number', 'Street', 'City', 'Postal Code')
+
+    tree = ttk.Treeview(lower_frame, columns=cols, show='headings')
+    tree.place(relx=0, relheight=1, relwidth=1)
 
     for col in cols:
         tree.heading(col, text=col, anchor='w')
@@ -199,7 +206,7 @@ create_gui_tree_view()
 def create_state_pick_list():
     global pick_list_states
 
-    states = ['', 'AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NM', 'NV', 'OR', 'UT', 'WA', 'WY', ]
+    states = ['', 'AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NM', 'NV', 'OR', 'UT', 'WA', 'WY']
 
     pick_list_states = ttk.Combobox(frame, value=states)
     pick_list_states.current(0)

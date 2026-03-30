@@ -1,0 +1,19 @@
+# Data files (too large for version control — see README for download links)
+*.csv
+!input.csv
+!input_ppl.csv
+*.png
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+
+# Output
+output.csv
+output_people_gen.csv
+
+# OS
+.DS_Store
+Thumbs.db
